@@ -228,6 +228,11 @@ restore-each: |
   "$TOOLS_DIR"/restore.sh
 
 suites:
+ tests/spread/core20/:
+   summary: core20 specific tests
+   systems:
+     - ubuntu-20.04*
+
  tests/spread/core22/:
    summary: core22 specific tests
    systems:
@@ -316,10 +321,11 @@ suites:
      - ubuntu-20.04*
      - ubuntu-22.04*
 
- tests/spread/core-devel/:
-   summary: tests of devel base snaps
-   environment:
-     SNAPCRAFT_BUILD_ENVIRONMENT: ""
+# 'build-base: devel' fails due to an issue with the 24.10 buildd image (#4921)
+# tests/spread/core-devel/:
+#   summary: tests of devel base snaps
+#   environment:
+#     SNAPCRAFT_BUILD_ENVIRONMENT: ""
 
  # General, core suite
  tests/spread/cross-compile/:
@@ -371,8 +377,15 @@ suites:
      sudo apt-get install git
      sudo apt-mark auto git
 
+ docs/howto/code/:
+   summary: tests how-to guides from the docs
+   systems:
+   - ubuntu-24.04-64
+
+
 path: /snapcraft/
 include:
+  - docs/
   - tests/
   - requirements.txt
   - requirements-devel.txt

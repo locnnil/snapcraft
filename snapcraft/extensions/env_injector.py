@@ -71,10 +71,12 @@ class EnvInjectorExtension(Extension):
 
     
     @overrides
-    def get_app_snippet(self) -> Dict[str, Any]:
-        """Return the app snippet to apply."""
+    def get_app_snippet(self, *, app_name: str) -> Dict[str, Any]:
         return {
             "command-chain": [ "bin/command-chain/env-exporter"],
+            "environment": {
+                "env_alias": app_name,
+            }
         }
 
     @overrides
